@@ -11,22 +11,24 @@ export interface SimpleTableProps{
     accessors: ColumnDefinition[];
     data: any[];
     children?: React.ReactNode;
+    tableStyle?: SimpleTableStyleProps;
     onChange?:(data: any[])=>void;
 }
 
 export interface SimpleTableStyleProps {
     borderWidth?: number;
+    borderColor?: string;
 }
 
-const Table = styled.table`
-border: solid 1px #CCC;
+const Table = styled.table<SimpleTableStyleProps>`
+border: solid ${props => props.borderWidth}px ${props => props.borderColor};
 border-collapse: collapse;
 td{
-    border: solid 1px #CCC;
+    border: solid ${props => props.borderWidth}px ${props => props.borderColor}
 }
 `;
 
-export const SimpleTable = ({accessors,data,children,onChange}: SimpleTableProps) => {
+export const SimpleTable = ({accessors,data,children,tableStyle,onChange}: SimpleTableProps) => {
     const [inputData, setInputData] = useState(data);
     const sort = (propName: string, isAscending: boolean) => {
         inputData.sort((d1,d2)=>{
@@ -55,7 +57,7 @@ export const SimpleTable = ({accessors,data,children,onChange}: SimpleTableProps
 
     return(
     <>
-    <Table>
+    <Table {...tableStyle}>
         <thead>
             {accessors.map(accsessor => (
             <td>
@@ -72,7 +74,7 @@ export const SimpleTable = ({accessors,data,children,onChange}: SimpleTableProps
         <tr>
             {
             accessors.map(accessor => {
-                return (<td>{accessor.isInputType ?(
+                return (Object.keys(d).includes(accessor.propName))&&(<td>{accessor.isInputType ?(
                 <input 
                   style={{border: 'none'}}
                   value={d[accessor.propName]}
