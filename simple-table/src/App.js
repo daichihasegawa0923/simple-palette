@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {SimpleTable} from './components/simple-table-component';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <SimpleTable 
+      data = {[{name: 'aaa', age: 12},{name: 'aaa', age: 12}]} 
+      accessors = {[{propName: 'name', displayName: '名前'},{propName: 'age', displayName: '年齢'}]} />
     </div>
   );
 }
