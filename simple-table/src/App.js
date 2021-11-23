@@ -1,8 +1,8 @@
 import {SimpleTable} from './components/simple-table-component';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div class="App">
       <SimpleTable 
       data = {[
         {name: 'aaa', age: 26},

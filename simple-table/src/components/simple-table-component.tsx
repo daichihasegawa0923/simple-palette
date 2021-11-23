@@ -11,13 +11,22 @@ export interface SimpleTableProps{
     accessors: ColumnDefinition[];
     data: any[];
     children?: React.ReactNode;
+    onChange?:(data: any[])=>void;
 }
 
 export interface SimpleTableStyleProps {
     borderWidth?: number;
 }
 
-export const SimpleTable = ({accessors,data,children}: SimpleTableProps) => {
+const Table = styled.table`
+border: solid 1px #CCC;
+border-collapse: collapse;
+td{
+    border: solid 1px #CCC;
+}
+`;
+
+export const SimpleTable = ({accessors,data,children,onChange}: SimpleTableProps) => {
     const [inputData, setInputData] = useState(data);
     const sort = (propName: string, isAscending: boolean) => {
         inputData.sort((d1,d2)=>{
@@ -30,6 +39,15 @@ export const SimpleTable = ({accessors,data,children}: SimpleTableProps) => {
         setInputData([...inputData]);
     }
 
+    const onChangeInputField = (propName: string, index: number, value: any) => {
+        const changedData = {...inputData[index], [propName]: value};
+        let changedArray = inputData;
+        changedArray[index] = changedData;
+        setInputData([...changedArray]);
+        if(onChange) onChange(changedArray);
+        
+    }
+
     if(accessors.length === 0 || data.length === 0 ){
         if (children) return (children);
         return(<>no data</>);
@@ -37,26 +55,31 @@ export const SimpleTable = ({accessors,data,children}: SimpleTableProps) => {
 
     return(
     <>
-    <table>
+    <Table>
         <thead>
-            {accessors.map(accsessor => (<td>
-                {accsessor.displayName}
-                <button style = {{border: 'none', backgroundColor: 'transparent'}} onClick={()=>{sort(accsessor.propName, true)}}>
-                    ↓
-                </button>
-                <button style = {{border: 'none', backgroundColor: 'transparent'}} onClick={()=>{sort(accsessor.propName, false)}}>
-                    ↑
-                </button>
+            {accessors.map(accsessor => (
+            <td>
+              {accsessor.displayName}
+              <button style = {{border: 'none', backgroundColor: 'transparent'}} onClick={()=>{sort(accsessor.propName, true)}}>
+                  ↓
+              </button>
+              <button style = {{border: 'none', backgroundColor: 'transparent'}} onClick={()=>{sort(accsessor.propName, false)}}>
+                  ↑
+              </button>
             </td>))}
         </thead>
-        {inputData.map(d =>(
+        {inputData.map((d,index) =>(
         <tr>
             {
             accessors.map(accessor => {
-                return (<td>{accessor.isInputType ?(<input value={d[accessor.propName]}/>) : d[accessor.propName]}</td>);
+                return (<td>{accessor.isInputType ?(
+                <input 
+                  style={{border: 'none'}}
+                  value={d[accessor.propName]}
+                  onChange={(e)=>{onChangeInputField(accessor.propName,index,e.target.value)}} />) : d[accessor.propName]}</td>);
             } )
             }
         </tr>))}
-    </table>
+    </Table>
     </>);
 }
