@@ -15,7 +15,7 @@ export const SimpleTable = ({accessors,data,children}: SimpleTableProps) => {
 
     if(accessors.length === 0 || data.length === 0 ){
         if (children) return (children);
-        return(<></>);
+        return(<>no data</>);
     }
 
     return(
@@ -26,7 +26,7 @@ export const SimpleTable = ({accessors,data,children}: SimpleTableProps) => {
         </thead>
         {data.map(d =>(
         <tr>
-            {accessors.map(accessor => (<td>{d[accessor.propName]}</td>))}
+            {accessors.map(accessor => (<td>git{d[accessor.propName]}</td>))}
         </tr>))}
     </table>
     </>);

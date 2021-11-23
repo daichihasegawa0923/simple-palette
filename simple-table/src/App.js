@@ -22,6 +22,8 @@ function App() {
       <SimpleTable 
       data = {[{name: 'aaa', age: 12},{name: 'aaa', age: 12}]} 
       accessors = {[{propName: 'name', displayName: '名前'},{propName: 'age', displayName: '年齢'}]} />
+      <SimpleTable data={[]} accessors={[]}/>
+      <SimpleTable data={[]} accessors={[]}><div>arisona</div></SimpleTable>
     </div>
   );
 }
