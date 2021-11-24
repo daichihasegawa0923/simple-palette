@@ -1,7 +1,7 @@
 {
   "name": "simple-table-component",
   "version": "0.0.1",
-  "main": "./dist/simple-table.js",
+  "main": "./dist/index.js",
   "author": "daichi_hasegawa",
   "license": "MIT",
   "files": [
@@ -20,6 +20,23 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+<<<<<<< HEAD
     "web-vitals": "^1.0.1"
   }
 }
+=======
+    "web-vitals": "^1.0.1",
+    "@types/react": "^17.0.36",
+    "@types/styled-components": "^5.1.15",
+    "styled-components": "^5.3.3"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.36",
+    "@types/styled-components": "^5.1.15",
+    "styled-components": "^5.3.3"
+  }
+}
+>>>>>>> 5d6037ed197c74c9605a19fb08927e160331b0eb

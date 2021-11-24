@@ -1,4 +1,4 @@
-import { SimpleTable } from 'simple-table-component';
+import {SimpleTable} from 'simple-table-component/src/simple-table'
 
 const App = () => {
   return (
