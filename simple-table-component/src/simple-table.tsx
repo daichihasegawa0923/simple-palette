@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components'
+import React /*, { useState }*/ from 'react';
+// import styled from 'styled-components'
 
 export interface ColumnDefinition
 {
@@ -23,19 +23,20 @@ export interface SimpleTableStyleProps
     borderColor?: string;
 }
 
-const Table = styled.table<SimpleTableStyleProps>`
-border: solid ${ (props) => props.borderWidth }px ${ (props) => props.borderColor };
-border-collapse: collapse;
-td{
-    border: solid ${ (props) => props.borderWidth }px ${ (props) => props.borderColor }
-}
-`;
+// const Table = styled.table<SimpleTableStyleProps>`
+// border: solid ${ (props) => props.borderWidth }px ${ (props) => props.borderColor };
+// border-collapse: collapse;
+// td{
+//     border: solid ${ (props) => props.borderWidth }px ${ (props) => props.borderColor }
+// }
+// `;
 
 export const NormalCompontnt = () => (<><div>normal component</div></>);
 
 export const SimpleTable = ({ accessors, data, children, tableStyle, onChange }: SimpleTableProps) =>
 {
-    const [ inputData, setInputData ] = useState(data);
+    // const [ inputData, setInputData ] = useState(data);
+    const inputData = data;
     const sort = (propName: string, isAscending: boolean) =>
     {
         inputData.sort((d1: { [ x: string ]: number; }, d2: { [ x: string ]: number; }) =>
@@ -47,7 +48,7 @@ export const SimpleTable = ({ accessors, data, children, tableStyle, onChange }:
             }
             return 1
         });
-        setInputData([ ...inputData ]);
+        //setInputData([ ...inputData ]);
     }
 
     const onChangeInputField = (propName: string, index: number, value: any) =>
@@ -55,7 +56,7 @@ export const SimpleTable = ({ accessors, data, children, tableStyle, onChange }:
         const changedData = { ...inputData[ index ], [ propName ]: value };
         let changedArray = inputData;
         changedArray[ index ] = changedData;
-        setInputData([ ...changedArray ]);
+        //setInputData([ ...changedArray ]);
         if (onChange) onChange(changedArray);
 
     }
@@ -68,7 +69,7 @@ export const SimpleTable = ({ accessors, data, children, tableStyle, onChange }:
 
     return (
         <>
-            <Table { ...tableStyle }>
+            <table>
                 <thead>
                     { accessors.map(accsessor => (
                         <td>
@@ -94,6 +95,6 @@ export const SimpleTable = ({ accessors, data, children, tableStyle, onChange }:
                             })
                         }
                     </tr>)) }
-            </Table>
+            </table>
         </>);
 }
