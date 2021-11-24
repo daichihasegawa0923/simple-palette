@@ -10056,19 +10056,8 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simple-table-component@../simple-table-component:
+simple-table-component@../simple-table-component/:
   version "0.0.1"
-<<<<<<< HEAD
-=======
-  dependencies:
-    "@testing-library/jest-dom" "^5.11.4"
-    "@testing-library/react" "^11.1.0"
-    "@testing-library/user-event" "^12.1.10"
-    react "^17.0.2"
-    react-dom "^17.0.2"
-    react-scripts "4.0.3"
-    web-vitals "^1.0.1"
->>>>>>> 5d6037ed197c74c9605a19fb08927e160331b0eb
 
 sisteransi@^1.0.5:
   version "1.0.5"

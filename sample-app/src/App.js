@@ -1,9 +1,9 @@
-import {SimpleTable} from 'simple-table-component/src/simple-table'
+import {SimpleTableComponent} from 'simple-table-component'
 
 const App = () => {
   return (
     <div class="App">
-      <SimpleTable
+      <SimpleTableComponent
         data={[
           { name: 'aaa', age: 26, point: 33 },
           { name: 'bbb', age: 22, point: 33 },
@@ -15,8 +15,6 @@ const App = () => {
           { propName: 'age', displayName: '年齢', isInputType: true },
           { propName: 'point', displayName: 'ポイント', isInputType: true }]}
         tableStyle={{ borderWidth: 2, borderColor: '#ddd' }} />
-      <SimpleTable data={[]} accessors={[]} />
-      <SimpleTable data={[]} accessors={[]}><div>arisona</div></SimpleTable>
     </div>
   );
 }
