@@ -18,6 +18,8 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
 
   const [ ctx, setCtx ] = useState<CanvasRenderingContext2D | null>(null);
 
+  const [ canvasElement, setCanvasElement ] = useState<HTMLElement | null>(null);
+
   const colors = [
     '#FFFFFF',
     '#FFFFCC',
@@ -238,7 +240,9 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
 
   useEffect(() =>
   {
-    const ctx2d = (document.getElementById('myCanvas') as HTMLCanvasElement)?.getContext('2d');
+    const element = document.getElementById('simple-palette-canvas');
+    setCanvasElement(element);
+    const ctx2d = (element as HTMLCanvasElement)?.getContext('2d');
     setCtx(ctx2d);
   }, []);
 
@@ -250,7 +254,11 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
 
   const inDrag = (x: number, y: number) =>
   {
-    ctx?.lineTo(x, y);
+    if (!canvasElement) return;
+    const rect = canvasElement.getBoundingClientRect();
+    const dx = ~~(x - rect.left);
+    const dy = ~~(y - rect.top);
+    ctx?.lineTo(dx, dy);
     if (ctx) ctx.strokeStyle = color;
     ctx?.stroke();
   }
@@ -260,11 +268,16 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
     ctx?.closePath();
   }
 
+  const clear = () =>
+  {
+    ctx?.clearRect(0, 0, canvasElement?.clientWidth ?? 0, canvasElement?.clientHeight ?? 0);
+  }
+
   return (
     <>
-      <canvas width={ w } height={ h } id='myCanvas'
+      <canvas width={ w } height={ h } id='simple-palette-canvas'
         onClick={ (e) => { startDrag() } }
-        onMouseMove={ (e) => { console.log(e.button); if (e.buttons !== 1) { return; } inDrag(e.pageX, e.pageY); } }
+        onMouseMove={ (e) => { console.log(e.button); if (e.buttons !== 1) { return; } inDrag(e.clientX, e.clientY); } }
         onMouseUp={ () => endDrag() }
         onMouseOut={ () => endDrag() }
         style={ { border: '1px solid #ccc' } }
@@ -279,5 +292,6 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
           }) }
         </div>
       </div>
+      <button onClick={ () => clear() }>clear</button>
     </>);
 }
