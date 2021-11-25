@@ -20,6 +20,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:watch": "tsc -w"
   }
 }

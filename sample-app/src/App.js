@@ -1,9 +1,9 @@
-import {Palette} from 'palette-component'
+import { Palette } from 'palette-component'
 
 const App = () => {
   return (
     <div class="App">
-      <Palette/>
+      <Palette width={'600px'} />
     </div>
   );
 }

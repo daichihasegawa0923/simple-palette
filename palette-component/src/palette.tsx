@@ -1,27 +1,50 @@
-import React　from 'react';
+import React, { useEffect, useState } from 'react';
 
-export interface CanvasProps{
-    width?: string;
-    height?: string;
+export interface CanvasProps
+{
+  width?: string;
+  height?: string;
 }
 
 export const NormalCompontnt = () => (<><div>normal component</div></>);
 
-export const Palette = ({ width, height }: CanvasProps) =>
-{
-    const w  = width ?? '400px';
-    const h  = height ?? '300px';
 
-    return (
-        <>
-        <canvas width={w} height={h} id='myCanvas'/>
-        <script>
-          var canvas = document.getElementById("myCanvas");
-          var ctx = canvas.getContext("2d");ctx.beginPath();
-          ctx.rect(20, 40, 50, 50);
-          ctx.fillStyle = "#FF0000";
-          ctx.fill();
-          ctx.closePath();
-        </script>
-        </>);
+export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =>
+{
+  const w = width ?? '400px';
+  const h = height ?? '300px';
+
+  const [ ctx, setCtx ] = useState<CanvasRenderingContext2D | null>(null);
+  const [ isDrag, setIsDrag ] = useState(false);
+
+  useEffect(() =>
+  {
+    const ctx2d = (document.getElementById('myCanvas') as HTMLCanvasElement)?.getContext('2d');
+    setCtx(ctx2d);
+  }, []);
+
+  const onDrag = () =>
+  {
+    if (!ctx) return;
+    ctx.beginPath();
+    setIsDrag(true);
+  };
+
+  const inDrag = (x: number, y: number) =>
+  {
+    if (!isDrag) return;
+    ctx?.lineTo(x, y);
+    ctx?.stroke();
+  }
+
+  const endDrag = () =>
+  {
+    ctx?.closePath();
+    setIsDrag(false);
+  }
+
+  return (
+    <>
+      <canvas width={ w } height={ h } id='myCanvas' onClick={ () => { onDrag() } } onMouseMove={ (e) => { inDrag(e.pageX, e.pageY) } } onMouseUp={ () => endDrag() } />
+    </>);
 }
