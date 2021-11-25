@@ -1,15 +1,15 @@
 {
-  "name": "simple-table",
+  "name": "sample-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "palette-component": "../palette-component",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "simple-palette-component": "../palette-component",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.0.1"
   },
