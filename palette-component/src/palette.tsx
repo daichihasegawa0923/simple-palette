@@ -256,6 +256,8 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
   {
     if (!canvasElement) return;
     const rect = canvasElement.getBoundingClientRect();
+    console.log(`y:${ y }`);
+    console.log(`rect.top:${ rect.top }`);
     const dx = ~~(x - rect.left);
     const dy = ~~(y - rect.top);
     ctx?.lineTo(dx, dy);
@@ -275,23 +277,25 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
 
   return (
     <>
-      <canvas width={ w } height={ h } id='simple-palette-canvas'
-        onClick={ (e) => { startDrag() } }
-        onMouseMove={ (e) => { console.log(e.button); if (e.buttons !== 1) { return; } inDrag(e.clientX, e.clientY); } }
-        onMouseUp={ () => endDrag() }
-        onMouseOut={ () => endDrag() }
-        style={ { border: '1px solid #ccc' } }
-      />
-      <div style={ { display: 'flex', border: '1px solid #ccc', width: '500px' } }>
-        <div>
-          { colors.map((c, index) =>
-          {
-            return <>
-              <button style={ { backgroundColor: c, width: '16px', height: '16px', border: `${ c === color ? '2px solid' : 'none' }`, borderRadius: '8px' } } onClick={ () => { setColor(c) } } />
-            </>
-          }) }
+      <div>
+        <canvas width={ w } height={ h } id='simple-palette-canvas'
+          onClick={ (e) => { startDrag() } }
+          onMouseMove={ (e) => { if (e.buttons !== 1) { return; } inDrag(e.clientX, e.clientY); } }
+          onMouseUp={ () => endDrag() }
+          onMouseOut={ () => endDrag() }
+          style={ { border: '1px solid #ccc' } }
+        />
+        <div style={ { display: 'flex', border: '1px solid #ccc', width: '500px' } }>
+          <div>
+            { colors.map((c, index) =>
+            {
+              return <>
+                <button style={ { backgroundColor: c, width: '16px', height: '16px', border: `${ c === color ? '2px solid' : 'none' }`, borderRadius: '8px' } } onClick={ () => { setColor(c) } } />
+              </>
+            }) }
+          </div>
         </div>
+        <button onClick={ () => clear() }>clear</button>
       </div>
-      <button onClick={ () => clear() }>clear</button>
     </>);
 }
