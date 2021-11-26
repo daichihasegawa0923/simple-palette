@@ -1,9 +1,15 @@
-import {Palette} from 'palette-component'
+import { Palette } from 'simple-palette-component'
 
 const App = () => {
   return (
     <div class="App">
-      <Palette/>
+      <h1>Super SImple Palette!!</h1>
+      <br />
+      <br />
+      <div style={{ display: 'flex' }} >
+        <p>Drag to draw!</p>
+        <Palette />
+      </div>
     </div>
   );
 }
