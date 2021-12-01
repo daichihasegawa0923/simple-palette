@@ -6,19 +6,18 @@ export interface CanvasProps
   height?: string;
 }
 
-export const NormalCompontnt = () => (<><div>normal component</div></>);
-
-
 export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =>
 {
   const w = width ?? '500px';
   const h = height ?? '500px';
 
-  const [ color, setColor ] = useState('#000');
+  const [ color, setColor ] = useState('#000000');
 
   const [ ctx, setCtx ] = useState<CanvasRenderingContext2D | null>(null);
 
   const [ canvasElement, setCanvasElement ] = useState<HTMLElement | null>(null);
+
+  const [ lineWidth, setLineWidth ] = useState(1.0);
 
   const colors = [
     '#FFFFFF',
@@ -261,7 +260,11 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
     const dx = ~~(x - rect.left);
     const dy = ~~(y - rect.top);
     ctx?.lineTo(dx, dy);
-    if (ctx) ctx.strokeStyle = color;
+    if (ctx)
+    {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+    }
     ctx?.stroke();
   }
 
@@ -275,6 +278,11 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
     ctx?.clearRect(0, 0, canvasElement?.clientWidth ?? 0, canvasElement?.clientHeight ?? 0);
   }
 
+  const changeLineWidth = (i: number) =>
+  {
+    setLineWidth(i);
+  }
+
   return (
     <>
       <div>
@@ -283,19 +291,41 @@ export const Palette: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =
           onMouseMove={ (e) => { if (e.buttons !== 1) { return; } inDrag(e.clientX, e.clientY); } }
           onMouseUp={ () => endDrag() }
           onMouseOut={ () => endDrag() }
+          onMouseLeave={ () => endDrag() }
           style={ { border: '1px solid #ccc' } }
         />
-        <div style={ { display: 'flex', border: '1px solid #ccc', width: '500px' } }>
-          <div>
-            { colors.map((c, index) =>
-            {
-              return <>
-                <button style={ { backgroundColor: c, width: '16px', height: '16px', border: `${ c === color ? '2px solid' : 'none' }`, borderRadius: '8px' } } onClick={ () => { setColor(c) } } />
-              </>
-            }) }
+        <div style={ { border: '1px solid #ccc', width: w } }>
+          <div>tool custom</div>
+          <div style={ { display: 'flex', justifyContent: 'center' } }>
+            <div>
+              <h5>thickness</h5>
+              <input type='radio' name='thickness' value='small' onClick={ () => { changeLineWidth(1.0) } } defaultChecked /><a style={ { fontSize: 10 } }>●</a><br />
+              <input type='radio' name='thickness' value='medium' onClick={ () => { changeLineWidth(2.0) } } /><a style={ { fontSize: 20 } }>●</a><br />
+              <input type='radio' name='thickness' value='large' onClick={ () => { changeLineWidth(3.0) } } /><a style={ { fontSize: 30 } }>●</a>
+            </div>
+            <div>
+              <h5>color palette</h5>
+              { colors.map((c) =>
+              {
+                return <>
+                  <button
+                    style={ {
+                      backgroundColor: c,
+                      width: '12px',
+                      height: '12px',
+                      border: `${ c === color ? '2px solid' : 'none' }`,
+                      borderRadius: '6px'
+                    } }
+                    onClick={ () => { setColor(c) } } />
+                </>
+              }) }
+            </div>
+            <div>
+              <h5>other edit</h5>
+              <button onClick={ () => clear() }>clear</button>
+            </div>
           </div>
         </div>
-        <button onClick={ () => clear() }>clear</button>
       </div>
     </>);
 }
