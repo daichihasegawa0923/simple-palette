@@ -5,10 +5,14 @@ export interface PaletteProps{
     onChangeColor?: (color: string) => void;
 }
 
-
-export const Palette: React.FC<PaletteProps> = (props) => {
+/**
+ * @description Simple Palette
+ * @param props.currentColor current choose color
+ * @param props.onChangeColor call when select any color on this component
+ */
+export const Palette: React.FC<PaletteProps> = ({currentColor, onChangeColor}: PaletteProps) => {
     const [isOpenPalette, setIsOpenPalette] = useState<boolean>(false);
-    const [currentColor, setCurrentColor] = useState<string>("#000000");
+    const [currentSelectedColor, setCurrentSelectedColor] = useState<string>(currentColor ?? '#000000');
     const colorNums  = ['0', '1', '2','3', '4', '5','6', '7', '8','9', 'A', 'B','C', 'D', 'E','F'];
     const buttonStyle = {
         width: '12px',
@@ -28,8 +32,8 @@ export const Palette: React.FC<PaletteProps> = (props) => {
                     backgroundColor: colorStr,
                 }}
                 onClick={(e)=>{
-                    if(props.onChangeColor)props.onChangeColor(colorStr)
-                    setCurrentColor(colorStr);
+                    if(onChangeColor)onChangeColor(colorStr)
+                    setCurrentSelectedColor(colorStr);
                 }}
                  />
                 );
@@ -60,7 +64,7 @@ export const Palette: React.FC<PaletteProps> = (props) => {
             width: '24px',
             height: '24px',
             borderRadius: '12px',
-            backgroundColor: currentColor,
+            backgroundColor: currentSelectedColor,
             border: 'solid 1px #000',
         }}/>
         {isOpenPalette && (
