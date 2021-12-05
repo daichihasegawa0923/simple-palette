@@ -1,12 +1,16 @@
 {
   "name": "simple-palette-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/index.js",
   "author": "daichi_hasegawa",
   "license": "MIT",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daichihasegawa0923/simple-palette"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
