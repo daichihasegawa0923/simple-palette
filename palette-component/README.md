@@ -16,7 +16,7 @@ const App = () => {
 
 export default App;
 
- ``` App.js
+ ```
 
  ### Canvas
 You can display components that allow you to draw simple pictures.
@@ -25,7 +25,7 @@ You can display components that allow you to draw simple pictures.
  You can display a simple color picker.
  It is also possible to pass the selected color to the calling component.
 
- ```
+ ``` App.js
 
  const[color, setColor] = useState<string>('#000000');
 
