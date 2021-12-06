@@ -1,5 +1,4 @@
-import {Canvas as CanvasComponent} from './canvas';
-import {Palette as PaletteComponent} from './palette';
+import { Canvas } from './canvas';
+import { Palette } from './palette';
 
-export const Canvas = CanvasComponent;
-export const Palette = PaletteComponent;
+export { Canvas, Palette };

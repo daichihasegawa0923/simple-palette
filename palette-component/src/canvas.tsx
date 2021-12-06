@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Palette} from './palette';
+import { Palette } from './palette';
 
 export interface CanvasProps
 {
@@ -68,19 +68,19 @@ export const Canvas: React.FC<CanvasProps> = ({ width, height }: CanvasProps) =>
     <>
       <div>
         <div style={ { border: '1px solid #ccc', width: w } }>
-          <div>tool custom</div>
-          <div style={ { display: 'flex'} }>
-            <div style={{padding: '0px 8px 0px 8px'}}>
+          <h4>edit</h4>
+          <div style={ { display: 'flex' } }>
+            <div style={ { padding: '0px 8px 0px 8px' } }>
               <h5>thickness</h5>
               <input type='radio' name='thickness' value='small' onClick={ () => { changeLineWidth(1.0) } } defaultChecked /><a style={ { fontSize: 10 } }>●</a><br />
               <input type='radio' name='thickness' value='medium' onClick={ () => { changeLineWidth(2.0) } } /><a style={ { fontSize: 20 } }>●</a><br />
               <input type='radio' name='thickness' value='large' onClick={ () => { changeLineWidth(3.0) } } /><a style={ { fontSize: 30 } }>●</a>
             </div>
-            <div style={{padding: '0px 8px 0px 8px'}}>
+            <div style={ { padding: '0px 8px 0px 8px' } }>
               <h5>color palette</h5>
-              <Palette onChangeColor={setColor} />
+              <Palette onChangeColor={ setColor } />
             </div>
-            <div style={{padding: '0px 8px 0px 8px'}}>
+            <div style={ { padding: '0px 8px 0px 8px' } }>
               <h5>other</h5>
               <button onClick={ () => clear() }>clear</button>
             </div>

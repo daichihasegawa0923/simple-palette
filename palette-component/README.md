@@ -16,7 +16,7 @@ const App = () => {
 
 export default App;
 
- ```
+ ``` App.js
 
  ### Canvas
 You can display components that allow you to draw simple pictures.
