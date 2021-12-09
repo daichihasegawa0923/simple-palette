@@ -1,3 +1,5 @@
+# simple-palette-component
+
 ## USAGE
  
  ``` App.js
